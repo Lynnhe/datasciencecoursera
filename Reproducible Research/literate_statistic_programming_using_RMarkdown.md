@@ -79,7 +79,7 @@ plot(cars)
 time <- format(Sys.time(),"%a %b %d %X %Y")  
 rand <- rnorm(1)  
 ```
-the current time is 周日 六月 08 13:04:11 2014. the random number produced is -1.2374.  
+the current time is 周日 六月 08 15:58:52 2014. the random number produced is -0.9347.  
 
   * use fig.height=numeric and fig.width to adjust figure size
 let's first simulate some data
@@ -137,7 +137,7 @@ print(xt,type="html")
 ```
 
 <!-- html table generated in R 3.0.2 by xtable 1.7-3 package -->
-<!-- Sun Jun 08 13:04:11 2014 -->
+<!-- Sun Jun 08 15:58:53 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Estimate </TH> <TH> Std. Error </TH> <TH> t value </TH> <TH> Pr(&gt;|t|) </TH>  </TR>
   <TR> <TD align="right"> (Intercept) </TD> <TD align="right"> -64.3421 </TD> <TD align="right"> 23.0547 </TD> <TD align="right"> -2.79 </TD> <TD align="right"> 0.0062 </TD> </TR>
