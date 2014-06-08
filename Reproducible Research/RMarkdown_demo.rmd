@@ -1,0 +1,107 @@
+literate statistic programming
+=========================================
+
+## 一、提到r代码的可读性  
+1. indenting：缩进，设置成8  
+2. 右边距，设置成80  
+
+
+## 二、markdown文件可以很容易地转换成HTML文件，语法很简单  
+1. *italics 斜体*    
+2. 标题 heading  
+    #main heading  
+    ##secondary heading  
+    ###tertiary heading  
+3. unordered list  
+ * apple  
+ * banana  
+ * pear
+
+4. ordered list  
+ 1. monday  
+ 2. thuesday  
+ 3. wednesday  
+5. links  
+第一种方式：链接指向的地址写在（）里，链接文字写在【】里，到时链接会蓝色下划线。  
+    [John Hopkin Bloomberg School of Public Health](http://www.jhsph.edu/)  
+    [Download R](http://www.r-project.org/)  
+    [RStudio](http://www.rstudio.com/)  
+第二种方式： 链接地址写在文章最下方，链接文字写在【】里，后面跟一个链接地址的引用。  
+    I spend so much time reading [R blogger][1] and [Simply Statistics][2]!  
+
+6. new lines:在行末加上a double space  
+
+## 三、R markdown，把r代码嵌入到markdown文件中，代码执行的结果也会自动添加到markdown文件中
+1. knitr package：convert R markdown to standard markdown
+2. markdown package: convert markdown to html
+3. when you use knitr in RStudio,you write the RMarkdown（.Rmd) and knitr produce a markdown file (.md),and it convert markdown file into html by default.You should not edit the .md or .html file until you are finished.  
+4. slidify package: used to create slides
+5. r code chunks    
+```{r firstchunk}
+summary(cars$dist)
+plot(cars)
+```  
+ * you can name a code chunck
+ * use "echo=FALSE" in {} after code chunck name(if any),in order to not echo the code in the result .html,but just show the result of the code.
+```{r secondchunk,echo=FALSE}  
+  summary(cars$dist) 
+```  
+ * use "results=hide" to hide the result of the code chunk,just show the code chunk itself.
+```{r thirdchunk,results="hide"}
+  summary(cars$dist)
+``` 
+  * use "result=asis" to print the result verbatim.compare with the firstchunk.
+```{r thirdchunk1,results="asis"}
+  summary(cars$dist)
+``` 
+
+ * inline text computations  
+```{r fourthchunk}
+time <- format(Sys.time(),"%a %b %d %X %Y")  
+rand <- rnorm(1)  
+```
+the current time is `r time`. the random number produced is `r rand`.  
+
+  * use fig.height=numeric and fig.width to adjust figure size
+let's first simulate some data
+```{r}  
+x <- rnorm(100);
+y <- x + rnorm(100,sd=0.5)
+```
+Here is a scatterplot of the data,use fig.height=4 to adjust figure
+```{r fifthchunk,fig.height=4}
+par(mar=c(5,4,1,1),las=1)
+plot(x,y,main="My Simulated Data")
+```  
+  * making tables with xtable  
+```{r sixthchunk}
+library(datasets)
+data(airquality)
+fit <- lm(Ozone ~ Wind + Temp + Solar.R,data=airquality)
+summary(fit)
+```
+Here is a table of regression coefficients
+```{r seventhchunk,results='asis'}
+library(xtable)
+xt <-xtable(summary(fit))
+print(xt,type="html")
+```  
+  * setting global options
+  write opts_chunk$set(echo=FALSE,results="hide") in a code chunk, and it will apply to all the chunks.A chunk with its own options will override the default global options.
+
+  * use cache=TRUE option to cache (store) results of computation,after the first run,results are loaded from cache.
+    * This option is set on a chunk-by-chunk basis.  
+    * If the data or code (or anything external) changes, you need to re-run the cached code chunks.  
+    * chunks with significat side effects may not be cacheable  
+6. knit2html("document.Rmd")  
+  browseURL("document.html")  
+  
+
+
+
+
+
+=============================================
+用第二种方式做link的链接地址一定要写在文章末，写在文件中间不生效
+[1]:http://www.r-bloggers.com/ "R blogger"  
+[2]:http://simplystatics.org/ "Simply Statistics"  
